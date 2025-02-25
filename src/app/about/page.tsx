@@ -1,4 +1,5 @@
 import React from 'react';
+import ScrollablePhotosGrid from '../components/ScrollablePhotosGrid';
 
 export default function About() {
   return (
@@ -9,6 +10,7 @@ export default function About() {
         <p className="mt-4">
           We created this site to share our passion for coffee and to provide a curated list of the best coffees and unique ways to enjoy them.
         </p>
+        <ScrollablePhotosGrid />
       </div>
     </div>
   );
