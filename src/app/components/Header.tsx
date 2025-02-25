@@ -7,11 +7,11 @@ export default function Header() {
       <div className="flex items-center">
         <Link href="/">
           <Image 
-            src="/opinionated.coffee.png"
+            src="/opinionated.coffee.words.png"
             alt="Logo" 
-            width={175}
-            height={175}
-            className="mr-3 -mt-2 header_logo"
+            width={300}
+            height={300}
+            className="mr-3"
           />
         </Link>
       </div>
