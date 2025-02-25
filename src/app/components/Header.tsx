@@ -6,11 +6,11 @@ export default function Header() {
     <header className="flex justify-between items-center p-4 bg-background text-foreground">
       <div className="flex items-center">
         <Image 
-          src="/favicon-32x32.png" 
+          src="/android-chrome-192x192.png"
           alt="Logo" 
-          width={32} 
-          height={32} 
-          className="mr-2"
+          width={48}
+          height={48}
+          className="mr-3"
         />
         <h1 className="text-xl font-bold">
             <Link href="/">
