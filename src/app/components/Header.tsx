@@ -1,10 +1,17 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Header() {
   return (
     <header className="flex justify-between items-center p-4 bg-background text-foreground">
       <div className="flex items-center">
-        <img src="/logo.png" alt="Logo" className="h-8 w-8 mr-2" />
+        <Image 
+          src="/favicon-32x32.png" 
+          alt="Logo" 
+          width={32} 
+          height={32} 
+          className="mr-2"
+        />
         <h1 className="text-xl font-bold">
             <Link href="/">
                 opinionated.coffee
