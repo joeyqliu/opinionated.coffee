@@ -100,6 +100,19 @@ useEffect(() => {
   };
 }, []);
 
+  const scrollToImage = (index: number) => {
+    const imageElements = containerRef.current?.querySelectorAll('.photo-item');
+    if (!imageElements || !imageElements[index]) return;
+    
+    const imageElement = imageElements[index] as HTMLElement;
+    const offset = imageElement.offsetTop - 100; // Offset to account for header
+    
+    window.scrollTo({
+      top: offset,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <div className="relative flex" ref={containerRef}>
     {/* Main content - vertically stacked images */}
@@ -146,30 +159,46 @@ useEffect(() => {
         </div>
       </div>
       
-    {/* Progress bar on the right */}
-    <div className="fixed right-8 top-1/2 transform -translate-y-1/2 h-1/2 flex flex-col items-center">
-    <div className="h-full w-[2px] bg-gray-300 relative">
-        <div 
-        className="absolute top-0 w-[2px] bg-black dark:bg-white"
-        style={{ height: `${scrollProgress}%` }}
-        />
-        
-        <div className="absolute top-0 right-0 h-full flex flex-col justify-between items-end">
-          {coffeeImages.map((_, index) => (
-            <div 
+    {/* Thumbnail progress bar on the right */}
+    <div className="fixed right-8 top-1/2 transform -translate-y-1/2 h-auto flex flex-col items-center">
+      <div className="h-auto py-4 flex flex-col space-y-4 items-center relative">
+        {/* Thumbnails */}
+        {coffeeImages.map((image, index) => {
+          // Calculate if this thumbnail should be "passed" based on scroll progress
+          const thumbnailPosition = (index / (coffeeImages.length - 1)) * 100;
+          const isPassed = scrollProgress >= thumbnailPosition;
+          
+          return (
+            <button
               key={index}
-            className={`w-2 h-2 rounded-full ${
-            index === activeIndex ? 'bg-black dark:bg-white scale-150' : 'bg-gray-400'
-            }`}
-              style={{
-                position: 'absolute',
-                top: `${(index / (coffeeImages.length - 1)) * 100}%`,
-                transform: 'translateY(-50%)',
-                transition: 'background-color 0.3s ease, transform 0.3s ease'
-              }}
-            />
-          ))}
-        </div>
+              onClick={() => scrollToImage(index)}
+              className={`relative w-14 h-14 rounded-lg overflow-hidden transition-all duration-300 
+                ${index === activeIndex 
+                  ? 'scale-110 z-10' 
+                  : `scale-100 hover:scale-105 ${isPassed ? 'opacity-90' : 'opacity-50'} hover:opacity-90`
+                }`}
+              aria-label={`Scroll to ${image.alt}`}
+            >
+              {index === activeIndex && (
+                <div className="absolute inset-0 border-flowing-gradient" style={{ 
+                  '--border-width': '2px',
+                  '--border-radius': '0.5rem'
+                } as React.CSSProperties}></div>
+              )}
+              <div className="relative h-full w-full overflow-hidden rounded-lg" style={{ 
+                padding: index === activeIndex ? '2px' : '0px'
+              }}>
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  sizes="56px"
+                  className="object-cover rounded-[calc(0.5rem-2px)]"
+                />
+              </div>
+            </button>
+          );
+        })}
       </div>
     </div>
   </div>)} 
