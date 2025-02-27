@@ -107,35 +107,41 @@ useEffect(() => {
     <div className="flex flex-col space-y-10">
         {coffeeImages.map((image, index) => (
             <motion.div 
-                key={image.id}
-                className={`photo-item relative w-full rounded-3xl overflow-hidden mx-auto ${
-                            Math.abs(index - activeIndex) > 1 ? 'opacity-90' : 'opacity-100'
-                            }`}
-                style={{
-                marginTop: index === 0 ? '0' : '-2vh',
-                zIndex: coffeeImages.length - index,
-                transform: `scale(${imageTransforms[index]?.scale || 1}) translateY(${(index * 5) + (imageTransforms[index]?.y || 0)}px)`,
-                transformOrigin: 'center',
-                willChange: 'transform',
-                borderRadius: '1.5rem',
-                transition: 'transform 0.3s ease-out'
-                }}
-            >
-                <Image
-                src={image.src}
-                alt={image.alt}
-                width={2400}
-                height={1600}
-                sizes="(max-width: 768px) 100vw, 800px"
-                className="w-full h-auto object-contain rounded-3xl"
-                priority={index < 3}
-                style={{
-                    transform: `translateY(${index % 2 === 0 ? -1 : 1}px) scale(${1 + (Math.abs(index - activeIndex) * 0.003)})`,
-                    borderRadius: '1.5rem',
-                    transition: 'transform 0.3s ease-out'
-                }}
-                />
-            </motion.div>
+            key={image.id}
+            className={`photo-item relative w-full mx-auto ${
+              Math.abs(index - activeIndex) > 1 ? 'opacity-90' : 'opacity-100'
+            }`}
+            style={{
+              marginTop: index === 0 ? '0' : '-2vh',
+              zIndex: coffeeImages.length - index,
+              transform: `scale(${imageTransforms[index]?.scale || 1}) translateY(${(index * 5) + (imageTransforms[index]?.y || 0)}px)`,
+              transformOrigin: 'center',
+              willChange: 'transform',
+              transition: 'transform 0.3s ease-out'
+            }}
+          >
+            <div className="relative rounded-3xl overflow-hidden">
+              <div className="absolute inset-0 border-flowing-gradient"></div>
+              <div className="relative rounded-3xl overflow-hidden" style={{ padding: 'var(--border-width)' }}>
+                <div className="overflow-hidden bg-background" style={{ borderRadius: 'calc(1.5rem - var(--border-width))' }}>
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    width={2400}
+                    height={1600}
+                    sizes="(max-width: 768px) 100vw, 800px"
+                    className="w-full h-auto object-cover"
+                    style={{
+                      borderRadius: 'calc(1.5rem - var(--border-width))',
+                      transform: `translateY(${index % 2 === 0 ? -1 : 1}px) scale(${1 + (Math.abs(index - activeIndex) * 0.003)})`,
+                      transition: 'transform 0.3s ease-out'
+                    }}
+                    priority={index < 3}
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.div>
           ))}
         </div>
       </div>
@@ -144,7 +150,7 @@ useEffect(() => {
     <div className="fixed right-8 top-1/2 transform -translate-y-1/2 h-1/2 flex flex-col items-center">
     <div className="h-full w-[2px] bg-gray-300 relative">
         <div 
-        className="absolute top-0 w-[2px] bg-black"
+        className="absolute top-0 w-[2px] bg-black dark:bg-white"
         style={{ height: `${scrollProgress}%` }}
         />
         
@@ -153,7 +159,7 @@ useEffect(() => {
             <div 
               key={index}
             className={`w-2 h-2 rounded-full ${
-            index === activeIndex ? 'bg-black scale-150' : 'bg-gray-400'
+            index === activeIndex ? 'bg-black dark:bg-white scale-150' : 'bg-gray-400'
             }`}
               style={{
                 position: 'absolute',
@@ -167,5 +173,4 @@ useEffect(() => {
       </div>
     </div>
   </div>)} 
-
   

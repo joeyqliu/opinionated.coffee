@@ -20,21 +20,21 @@ export default function Header() {
         <ul className="flex space-x-6">
           <li>
             <Link href="/about">
-              <button className="px-6 py-2 text-lg font-bold text-black bg-white border border-black rounded-full transition duration-300 hover:bg-black hover:text-white">
+              <button className="px-6 py-2 text-lg font-bold text-primary-foreground bg-primary border border-primary rounded-full transition duration-300 hover:bg-background hover:text-primary">
                 About
               </button>
             </Link>
           </li>
           <li>
             <Link href="/merch">
-              <button className="px-6 py-2 text-lg font-bold text-black bg-white border border-black rounded-full transition duration-300 hover:bg-black hover:text-white">
+              <button className="px-6 py-2 text-lg font-bold text-primary-foreground bg-primary border border-primary rounded-full transition duration-300 hover:bg-background hover:text-primary">
                 Merch
               </button>
             </Link>
           </li>
           <li>
             <Link href="/coffee">
-              <button className="px-6 py-2 text-lg font-bold text-black bg-white border border-black rounded-full transition duration-300 hover:bg-black hover:text-white">
+              <button className="px-6 py-2 text-lg font-bold text-primary-foreground bg-primary border border-primary rounded-full transition duration-300 hover:bg-background hover:text-primary">
                 Coffee
               </button>
             </Link>
