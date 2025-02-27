@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { TextAnimate } from "../../components/magicui/text-animate";
 
 // Sample content sections with alternating layouts
 const contentSections = [
@@ -64,31 +65,36 @@ export default function AlternatingContent() {
   }, []);
 
   return (
-    <div className="py-16">
+    <div className="py-8">
       {contentSections.map((section, index) => (
         <div 
           key={section.id}
           ref={(el: HTMLDivElement | null) => { sectionRefs.current[index] = el }}
-          className={`flex flex-col ${section.layout === 'imageLeft' ? 'md:flex-row-reverse' : 'md:flex-row'} 
-                     items-center mb-32 opacity-0 translate-y-10 transition-all duration-1000 ease-out`}
+          className="flex flex-col md:flex-row items-center mb-24 opacity-0 translate-y-10 transition-all duration-1000 ease-out"
         >
-          {/* Text content */}
-          <div className="w-full md:w-1/2 px-6 md:px-12 mb-8 md:mb-0">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">{section.title}</h2>
-            <p className="text-lg md:text-xl">{section.description}</p>
-          </div>
-          
-          {/* Image */}
-          <div className="w-full md:w-1/2 px-6">
-            <div className="relative h-[50vh] w-full overflow-hidden rounded-lg">
-              <Image
-                src={section.imageSrc}
-                alt={section.imageAlt}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-                priority={index < 2}
-              />
+          {/* Image and text container */}
+          <div className={`flex w-full ${section.layout === 'imageLeft' ? 'flex-row-reverse' : 'flex-row'} items-center`}> 
+            {/* Image */}
+            <div className="w-full md:w-1/2 mb-12 md:mb-0">
+              <div className="relative h-[60vh] w-full overflow-hidden">
+                <Image
+                  src={section.imageSrc}
+                  alt={section.imageAlt}
+                  fill
+                  sizes="100vw"
+                  className="object-cover"
+                  priority={index < 2}
+                />
+              </div>
+            </div>
+            {/* Text */}
+            <div className="w-full md:w-1/2 px-6">
+              <TextAnimate animation="blurIn" as="h2" className="text-5xl md:text-6xl font-bold mb-6">
+                {section.title}
+              </TextAnimate>
+              <TextAnimate animation="blurIn" as="p" className="text-xl md:text-2xl">
+                {section.description}
+              </TextAnimate>
             </div>
           </div>
         </div>
